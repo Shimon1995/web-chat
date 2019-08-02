@@ -1,6 +1,6 @@
-.next
-node_modules
+# Folders
+.next/
 
-yarn-error.log
-yarn.lock
+node_modules/
+
 

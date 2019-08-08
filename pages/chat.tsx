@@ -1,11 +1,13 @@
-import { Component, FormEvent } from "react";
-import Layout from "../components/Layout";
+import NameInputForm from "../components/chat-components/NameInputForm";
 import InputField from "../components/chat-components/InputField";
 import TextArea from "../components/chat-components/TextArea";
-import io from "socket.io-client";
 import { Dialogue } from "../components/types";
+import { Component, FormEvent } from "react";
+import Layout from "../components/Layout";
+import io from "socket.io-client";
 
 interface State {
+  input: string;
   socket: SocketIOClient.Socket;
   chat: Dialogue[];
   message: Dialogue;
@@ -13,10 +15,11 @@ interface State {
 
 class Chat extends Component<void, State> {
   state = {
+    input: "",
     socket: io(),
     chat: [],
     message: {
-      name: "Brad",
+      name: "",
       msg: ""
     }
   };
@@ -37,6 +40,13 @@ class Chat extends Component<void, State> {
       <Layout title="Chat">
         <div className="chat">
           <h1>Chat Application</h1>
+          {this.state.message.name === "" && (
+            <NameInputForm
+              input={this.state.input}
+              onChangeInput={this.changeNameInput.bind(this)}
+              onChangeName={this.changeName.bind(this)}
+            />
+          )}
           <TextArea messages={this.state.chat} />
           <InputField
             message={this.state.message}
@@ -47,9 +57,18 @@ class Chat extends Component<void, State> {
       </Layout>
     );
   }
+  changeNameInput(event: FormEvent<HTMLInputElement>): void {
+    this.setState({ input: event.currentTarget.value });
+  }
+  changeName(event: FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+    this.setState({ message: { name: this.state.input, msg: "" }, input: "" });
+  }
   takeInput(event: FormEvent<HTMLInputElement>): void {
+    const { value } = event.currentTarget;
+    const n = this.state.message.name;
     this.setState({
-      message: { name: this.state.message.name, msg: event.currentTarget.value }
+      message: { name: n === "" ? "User" : n, msg: value }
     });
   }
   sendMessage(event: FormEvent<HTMLFormElement>): void {

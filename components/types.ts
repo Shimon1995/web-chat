@@ -1,4 +1,4 @@
-export type Dialogue = {
+export interface Dialogue {
   name: string;
   msg: string;
-};
+}

@@ -1,20 +1,34 @@
 import { FunctionComponent, FormEventHandler } from "react";
+import { changeNameInput, changeName } from "../../store";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 interface Props {
   input: string;
-  onChangeInput: FormEventHandler;
-  onChangeName: FormEventHandler;
+  changeNameInput: FormEventHandler;
+  changeName: FormEventHandler;
 }
 
 const NameInputForm: FunctionComponent<Props> = ({
   input,
-  onChangeInput,
-  onChangeName
+  changeNameInput,
+  changeName
 }) => (
-  <form onSubmit={e => onChangeName(e)}>
-    <input type="text" value={input} onChange={e => onChangeInput(e)} />
+  <form onSubmit={changeName}>
+    <input type="text" value={input} onChange={changeNameInput} />
     <input type="button" value="Submit" />
   </form>
 );
 
-export default NameInputForm;
+function mapStateToProps(state) {
+  const { input } = state;
+  return {
+    input
+  };
+}
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ changeNameInput, changeName }, dispatch);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NameInputForm);

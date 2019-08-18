@@ -1,9 +1,9 @@
 import { createServer, Server as ServerHTTP } from "http";
 import express, { Express, Request, Response } from "express";
 import Server from "next-server/dist/server/next-server";
-import socket, { Socket } from "socket.io";
-import next from "next";
+import socket, { Socket, Server as SocketServ } from "socket.io";
 import { Dialogue } from "../components/types";
+import next from "next";
 
 const port: number = parseInt(process.env.PORT || "3000", 10);
 const dev: boolean = process.env.NODE_ENV !== "production";
@@ -23,7 +23,7 @@ nextApp
     });
 
     const server: ServerHTTP = createServer(app);
-    const io: socket.Server = socket(server);
+    const io: SocketServ = socket(server);
 
     let room: number = 0;
     io.on("connection", (socket: Socket) => {

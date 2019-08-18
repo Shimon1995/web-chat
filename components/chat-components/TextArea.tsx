@@ -1,14 +1,15 @@
 import { FunctionComponent } from "react";
-import { Dialogue } from "../types";
+import { Dialogue, State } from "../types";
 import uid from "uniqid";
+import { connect } from "react-redux";
 
 interface Props {
-  messages: Dialogue[];
+  chat: Dialogue[];
 }
 
-const TextArea: FunctionComponent<Props> = ({ messages }) => (
+const TextArea: FunctionComponent<Props> = ({ chat }) => (
   <ul>
-    {messages.map(({ name, msg }: Dialogue) => (
+    {chat.map(({ name, msg }: Dialogue) => (
       <li key={uid()}>
         {name}
         <br />
@@ -17,5 +18,10 @@ const TextArea: FunctionComponent<Props> = ({ messages }) => (
     ))}
   </ul>
 );
-
-export default TextArea;
+function mapStateToProps(state: State) {
+  const { chat } = state;
+  return {
+    chat
+  };
+}
+export default connect(mapStateToProps)(TextArea);

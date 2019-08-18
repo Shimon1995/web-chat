@@ -22,9 +22,8 @@ class Input extends Component<Props, State> {
     socket: io()
   };
   componentDidMount(): void {
-    const { messageSocket } = this.props;
     this.state.socket.on("message", (mssg: Dialogue) => {
-      messageSocket(mssg);
+      this.props.messageSocket(mssg);
     });
   }
   componentWillUnmount(): void {

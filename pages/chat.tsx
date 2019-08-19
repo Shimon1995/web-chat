@@ -11,11 +11,11 @@ interface Props {
   chat: Dialogue[];
 }
 
-const Chat: NextPage<Props> = () => (
+const Chat: NextPage<Props> = ({ message }) => (
   <Layout title="Chat">
     <div className="chat">
       <h1>Chat Application</h1>
-      {this.props.message.name === "" && <NameInputForm />}
+      {message.name === "" && <NameInputForm />}
       <TextArea />
       <InputField />
     </div>
@@ -23,7 +23,7 @@ const Chat: NextPage<Props> = () => (
 );
 
 function mapStateToProps(state: State) {
-  const { message, chat } = state;
-  return { message, chat };
+  const { message } = state;
+  return { message };
 }
 export default connect(mapStateToProps)(Chat);

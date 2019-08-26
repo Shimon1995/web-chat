@@ -1,12 +1,12 @@
 import { Component, FormEvent, FormEventHandler } from "react";
 import { connect } from "react-redux";
-import { takeInput, sendMessage, messageSocket } from "../../store";
+import { takeInput, sendMessage, receiveMessage } from "../../store";
 import { Dialogue, State as GlobalState } from "../types";
 import { bindActionCreators } from "redux";
 import io from "socket.io-client";
 
 interface State {
-  socket: SocketIO.Client;
+  socket: any;
 }
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
   message?: Dialogue;
   takeInput: FormEventHandler;
   sendMessage: FormEventHandler;
-  messageSocket: any;
+  receiveMessage: any;
 }
 
 class Input extends Component<Props, State> {
@@ -23,7 +23,7 @@ class Input extends Component<Props, State> {
   };
   componentDidMount(): void {
     this.state.socket.on("message", (mssg: Dialogue) => {
-      this.props.messageSocket(mssg);
+      this.props.receiveMessage(mssg);
     });
   }
   componentWillUnmount(): void {
@@ -34,12 +34,34 @@ class Input extends Component<Props, State> {
     return (
       <form
         onSubmit={(event: FormEvent<HTMLFormElement>) => {
-          this.state.socket.emit("msg", message);
-          sendMessage(event);
+          event.preventDefault();
+          if (message.msg !== "") {
+            this.state.socket.emit("msg", message);
+            sendMessage(event);
+          }
         }}
+        className="inputForm"
       >
-        <input type="text" value={message.msg} onChange={takeInput} />
-        <input type="button" value="Send" />
+        {/* <input type="button" value="Disconnect" /> */}
+        <input
+          className="text"
+          type="text"
+          value={message.msg}
+          onChange={takeInput}
+          placeholder="Your message goes here"
+        />
+        <input
+          className="button button-primary"
+          type="button"
+          value="Send"
+          onClick={(event: FormEvent<HTMLInputElement>) => {
+            if (message.msg !== "") {
+              this.state.socket.emit("msg", message);
+              sendMessage(event);
+            }
+            event.preventDefault();
+          }}
+        />
       </form>
     );
   }
@@ -54,7 +76,7 @@ function mapStateToProps(state: GlobalState) {
   };
 }
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ takeInput, sendMessage, messageSocket }, dispatch);
+  bindActionCreators({ takeInput, sendMessage, receiveMessage }, dispatch);
 export default connect(
   mapStateToProps,
   mapDispatchToProps

@@ -1,30 +1,88 @@
-h1,
-a {
-    font-family: "Arial";
-    margin: 5px;
-    padding: 8px;
-}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: white;
 
-ul {
-    padding: 0;
-}
+  // background: url("./wallpaper.jpg");
+  // background-size: cover;
+  nav {
+    background: rgb(49, 49, 49);
+    height: 80px;
+    text-align: right;
+    margin-bottom: 40px;
 
-li {
-    list-style: none;
-    margin: 5px 0;
-}
+    div {
+      padding-top: 25px;
+      padding-right: 40px;
 
-a {
-    text-decoration: none;
-    color: blue;
-
-    &:hover {
-        opacity: 0.6;
+      a {
+        color: white;
+        padding: 20px;
+        text-decoration: none;
+      }
     }
-}
+  }
 
-.block {
-    margin: 15px;
-    padding: 15px;
-    border: 1px solid black;
+  .container {
+    text-align: center;
+
+    .chat {
+
+      .space {
+        margin: 90px;
+      }
+
+      .nameForm {
+        margin-left: 35px;
+
+        input {
+          box-shadow: 0 0 10px 0.5px rgb(202, 201, 201);
+        }
+      }
+
+      .textArea {
+        background: white;
+        border-radius: 4%;
+        margin: 0 30% 0 30%;
+        box-shadow: 0 0 10px 0.5px rgb(202, 201, 201);
+        height: 350px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        list-style: none;
+        text-align: none;
+
+        li {
+          box-shadow: 0 0 5px 0.3px rgb(202, 201, 201);
+        }
+      }
+
+      .textArea::-webkit-scrollbar {
+        width: 0;
+      }
+
+      input {
+        margin: 4px;
+      }
+
+      .inputForm {
+        padding: 5px;
+        margin: 15px 30% 0 30%;
+        border-radius: 5%;
+        box-shadow: 0 0 10px 0.5px rgb(202, 201, 201);
+      }
+    }
+  }
+
+  footer {
+    position: fixed;
+    bottom: 0;
+    height: 120px;
+    width: 95%;
+
+    p {
+      margin: 20px;
+    }
+  }
 }

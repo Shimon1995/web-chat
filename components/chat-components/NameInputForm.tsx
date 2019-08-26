@@ -2,6 +2,7 @@ import { FunctionComponent, FormEventHandler } from "react";
 import { changeNameInput, changeName } from "../../store";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { State } from "../types";
 
 interface Props {
   input: string;
@@ -14,13 +15,18 @@ const NameInputForm: FunctionComponent<Props> = ({
   changeNameInput,
   changeName
 }) => (
-  <form onSubmit={changeName}>
-    <input type="text" value={input} onChange={changeNameInput} />
-    <input type="button" value="Submit" />
+  <form className="nameForm" onSubmit={changeName}>
+    <input
+      className="text"
+      type="text"
+      value={input}
+      onChange={changeNameInput}
+      placeholder="Enter Your Name"
+    />
   </form>
 );
 
-function mapStateToProps(state) {
+function mapStateToProps(state: State) {
   const { input } = state;
   return {
     input

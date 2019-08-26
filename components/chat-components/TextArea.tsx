@@ -8,9 +8,12 @@ interface Props {
 }
 
 const TextArea: FunctionComponent<Props> = ({ chat }) => (
-  <ul>
+  <ul className="textArea">
     {chat.map(({ name, msg }: Dialogue) => (
-      <li key={uid()}>
+      <li
+        key={uid()}
+        style={name == "Me" ? myMessageStyle : companionMessageStyle}
+      >
         {name}
         <br />
         {msg}
@@ -24,4 +27,26 @@ function mapStateToProps(state: State) {
     chat
   };
 }
+
+const myMessageStyle = {
+  color: "white",
+  width: "50px",
+  margin: 10,
+  marginLeft: 200,
+  paddingLeft: 60,
+  paddingRight: 50,
+  borderRadius: "5%",
+  backgroundColor: "rgb(0, 194, 242)"
+};
+
+const companionMessageStyle = {
+  width: "50px",
+  margin: 10,
+  marginRight: 200,
+  paddingRight: 60,
+  paddingLeft: 50,
+  borderRadius: "5%",
+  backgroundColor: "white"
+};
+
 export default connect(mapStateToProps)(TextArea);

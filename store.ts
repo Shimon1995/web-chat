@@ -18,7 +18,7 @@ export enum actionTypes {
   CHANGENAME,
   TAKEINPUT,
   SENDMESSAGE,
-  MESSAGESOCKET
+  RECEIVEMESSAGE
 }
 
 // REDUCERS
@@ -28,7 +28,7 @@ export const reducer = (state = exampleInitialState, action) => {
     CHANGENAME,
     TAKEINPUT,
     SENDMESSAGE,
-    MESSAGESOCKET
+    RECEIVEMESSAGE
   } = actionTypes;
   switch (action.type) {
     case CHANGEINPUT:
@@ -55,7 +55,7 @@ export const reducer = (state = exampleInitialState, action) => {
         chat: [...state.chat, { name: "Me", msg: state.message.msg }],
         message: { name: state.message.name, msg: "" }
       });
-    case MESSAGESOCKET:
+    case RECEIVEMESSAGE:
       return Object.assign({}, state, {
         chat: [...state.chat, action.mssg],
         message: { name: state.message.name, msg: "" }
@@ -94,9 +94,9 @@ export const sendMessage = (event: FormEvent<HTMLFormElement>) => {
   };
 };
 
-export const messageSocket = (mssg: Dialogue) => {
+export const receiveMessage = (mssg: Dialogue) => {
   return {
-    type: actionTypes.MESSAGESOCKET,
+    type: actionTypes.RECEIVEMESSAGE,
     mssg
   };
 };

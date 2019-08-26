@@ -15,7 +15,7 @@ const Chat: NextPage<Props> = ({ message }) => (
   <Layout title="Chat">
     <div className="chat">
       <h1>Chat Application</h1>
-      {message.name === "" && <NameInputForm />}
+      {message.name === "" ? <NameInputForm /> : <div className="space" />}
       <TextArea />
       <InputField />
     </div>

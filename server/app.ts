@@ -29,7 +29,7 @@ nextApp
     io.on("connection", (socket: Socket) => {
       if (
         io.nsps["/"].adapter.rooms[`room-${room}`] &&
-        io.nsps["/"].adapter.rooms[`room-${room}`].length > 1
+        io.nsps["/"].adapter.rooms[`room-${room}`].length >= 2
       )
         ++room;
 

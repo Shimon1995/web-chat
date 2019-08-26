@@ -1,29 +1,29 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js add redux-dev-tools --dev
+  /usr/bin/node /usr/share/yarn/bin/yarn.js add matherialize-css
 
 PATH: 
-  /home/hermit/.cargo/bin:/home/hermit/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+  /home/hermit/.cargo/bin:/home/hermit/.local/bin:/home/hermit/.cargo/bin:/home/hermit/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/hermit/.Flutter/bin:/home/hermit/.dart-sdk/bin:/home/hermit/Library/Android/sdk/tools
 
 Yarn version: 
   1.17.3
 
 Node version: 
-  12.8.0
+  12.9.0
 
 Platform: 
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/redux-dev-tools: Not found
+  Error: https://registry.yarnpkg.com/matherialize-css: Not found
       at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66830:18)
       at Request.self.callback (/usr/share/yarn/lib/cli.js:140464:22)
-      at Request.emit (events.js:203:13)
+      at Request.emit (events.js:209:13)
       at Request.<anonymous> (/usr/share/yarn/lib/cli.js:141436:10)
-      at Request.emit (events.js:203:13)
+      at Request.emit (events.js:209:13)
       at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:141358:12)
-      at Object.onceWrapper (events.js:291:20)
-      at IncomingMessage.emit (events.js:208:15)
-      at endReadableNT (_stream_readable.js:1168:12)
+      at Object.onceWrapper (events.js:297:20)
+      at IncomingMessage.emit (events.js:214:15)
+      at endReadableNT (_stream_readable.js:1178:12)
       at processTicksAndRejections (internal/process/task_queues.js:77:11)
 
 npm manifest: 
@@ -37,6 +37,7 @@ npm manifest:
       "@types/node": "^12.6.3",
       "@types/react": "^16.8.23",
       "@types/react-dom": "^16.8.4",
+      "@types/react-redux": "^7.1.1",
       "@types/socket.io": "^2.1.2",
       "@types/socket.io-client": "^1.4.32",
       "@types/uniqid": "^4.1.3",
@@ -52,7 +53,10 @@ npm manifest:
       "next": "^9.0.2",
       "nodemon": "^1.19.1",
       "react": "^16.8.6",
-      "react-dom": "^16.8.6",
+      "react-dom": "^16.9.0",
+      "react-redux": "^7.1.0",
+      "react-skeleton-css": "^1.1.0",
+      "redux": "^4.0.4",
       "socket.io": "^2.2.0",
       "ts-node": "^8.3.0",
       "typescript": "^3.5.3",
@@ -62,6 +66,9 @@ npm manifest:
       "dev": "nodemon",
       "build": "next build && tsc --project tsconfig.server.json",
       "start": "cross-env NODE_ENV=production node dist/index.js"
+    },
+    "devDependencies": {
+      "redux-devtools-extension": "^2.13.8"
     }
   }
 
@@ -810,6 +817,13 @@ Lockfile:
     dependencies:
       regenerator-runtime "^0.13.2"
   
+  "@babel/runtime@^7.4.5":
+    version "7.5.5"
+    resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
+    integrity sha512-28QvEGyQyNkB0/m2B4FU7IEZGK2NUrcMtT6BZEFALTguLk+AUT6ofsHtPk5QyjAdUkpMJ+/Em+quwz4HOt30AQ==
+    dependencies:
+      regenerator-runtime "^0.13.2"
+  
   "@babel/template@^7.1.0", "@babel/template@^7.4.4":
     version "7.4.4"
     resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.4.4.tgz#f4b88d1225689a08f5bc3a17483545be9e4ed237"
@@ -875,6 +889,14 @@ Lockfile:
       "@types/express-serve-static-core" "*"
       "@types/serve-static" "*"
   
+  "@types/hoist-non-react-statics@^3.3.0":
+    version "3.3.1"
+    resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+    integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+    dependencies:
+      "@types/react" "*"
+      hoist-non-react-statics "^3.3.0"
+  
   "@types/mime@*":
     version "2.0.1"
     resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
@@ -901,6 +923,16 @@ Lockfile:
     integrity sha512-idCEjROZ2cqh29+trmTmZhsBAUNQuYrF92JHKzZ5+aiFM1mlSk3bb23CK7HhYuOY75Apgap5y2jTyHzaM2AJGA==
     dependencies:
       "@types/react" "*"
+  
+  "@types/react-redux@^7.1.1":
+    version "7.1.1"
+    resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-7.1.1.tgz#eb01e89cf71cad77df9f442b819d5db692b997cb"
+    integrity sha512-owqNahzE8en/jR4NtrUJDJya3tKru7CIEGSRL/pVS84LtSCdSoT7qZTkrbBd3S4Lp11sAp+7LsvxIeONJVKMnw==
+    dependencies:
+      "@types/hoist-non-react-statics" "^3.3.0"
+      "@types/react" "*"
+      hoist-non-react-statics "^3.3.0"
+      redux "^4.0.0"
   
   "@types/react@*", "@types/react@^16.8.23":
     version "16.8.23"
@@ -3078,6 +3110,13 @@ Lockfile:
       minimalistic-assert "^1.0.0"
       minimalistic-crypto-utils "^1.0.1"
   
+  hoist-non-react-statics@^3.3.0:
+    version "3.3.0"
+    resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.0.tgz#b09178f0122184fb95acf525daaecb4d8f45958b"
+    integrity sha512-0XsbTXxgiaCDYDIWFcwkmerZPSwywfUqYmwT4jzewKTQSWoE6FCMoUVOeBJWK3E/CrWbxRG3m5GzY4lnIwGRBA==
+    dependencies:
+      react-is "^16.7.0"
+  
   hosted-git-info@^2.1.4:
     version "2.7.1"
     resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
@@ -3250,7 +3289,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
     integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
   
-  invariant@^2.2.2:
+  invariant@^2.2.2, invariant@^2.2.4:
     version "2.2.4"
     resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
     integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -4714,7 +4753,7 @@ Lockfile:
       object.assign "^4.1.0"
       reflect.ownkeys "^0.2.0"
   
-  prop-types@15.7.2, prop-types@^15.6.2:
+  prop-types@15.7.2, prop-types@^15.6.2, prop-types@^15.7.2:
     version "15.7.2"
     resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
     integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -4863,15 +4902,15 @@ Lockfile:
       minimist "^1.2.0"
       strip-json-comments "~2.0.1"
   
-  react-dom@^16.8.6:
-    version "16.8.6"
-    resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
-    integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
+  react-dom@^16.9.0:
+    version "16.9.0"
+    resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
+    integrity sha512-YFT2rxO9hM70ewk9jq0y6sQk8cL02xm4+IzYBz75CQGlClQQ1Bxq0nhHF6OtSbit+AIahujJgb/CPRibFkMNJQ==
     dependencies:
       loose-envify "^1.1.0"
       object-assign "^4.1.1"
       prop-types "^15.6.2"
-      scheduler "^0.13.6"
+      scheduler "^0.15.0"
   
   react-error-overlay@5.1.6:
     version "5.1.6"
@@ -4882,6 +4921,28 @@ Lockfile:
     version "16.8.6"
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
     integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
+  
+  react-is@^16.7.0, react-is@^16.8.6:
+    version "16.9.0"
+    resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.9.0.tgz#21ca9561399aad0ff1a7701c01683e8ca981edcb"
+    integrity sha512-tJBzzzIgnnRfEm046qRcURvwQnZVXmuCbscxUO5RWrGTXpon2d4c8mI0D8WE6ydVIm29JiLB6+RslkIvym9Rjw==
+  
+  react-redux@^7.1.0:
+    version "7.1.0"
+    resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.1.0.tgz#72af7cf490a74acdc516ea9c1dd80e25af9ea0b2"
+    integrity sha512-hyu/PoFK3vZgdLTg9ozbt7WF3GgX5+Yn3pZm5/96/o4UueXA+zj08aiSC9Mfj2WtD1bvpIb3C5yvskzZySzzaw==
+    dependencies:
+      "@babel/runtime" "^7.4.5"
+      hoist-non-react-statics "^3.3.0"
+      invariant "^2.2.4"
+      loose-envify "^1.4.0"
+      prop-types "^15.7.2"
+      react-is "^16.8.6"
+  
+  react-skeleton-css@^1.1.0:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/react-skeleton-css/-/react-skeleton-css-1.1.0.tgz#568f7db9174694185fbf3829493b2848ed338976"
+    integrity sha512-/9/Aj4fAQFKLozZMB/AUp1jrmiYbpP9Ekons41ab5YfwKLqfaaTp1SvJEYYJpG6MxwMSMf3Oi4j/Ql09DAUYCw==
   
   react@^16.8.6:
     version "16.8.6"
@@ -4923,6 +4984,19 @@ Lockfile:
       graceful-fs "^4.1.11"
       micromatch "^3.1.10"
       readable-stream "^2.0.2"
+  
+  redux-devtools-extension@^2.13.8:
+    version "2.13.8"
+    resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.8.tgz#37b982688626e5e4993ff87220c9bbb7cd2d96e1"
+    integrity sha512-8qlpooP2QqPtZHQZRhx3x3OP5skEV1py/zUdMY28WNAocbafxdG2tRD1MWE7sp8obGMNYuLWanhhQ7EQvT1FBg==
+  
+  redux@^4.0.0, redux@^4.0.4:
+    version "4.0.4"
+    resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.4.tgz#4ee1aeb164b63d6a1bcc57ae4aa0b6e6fa7a3796"
+    integrity sha512-vKv4WdiJxOWKxK0yRoaK3Y4pxxB0ilzVx6dszU2W8wLxlb2yikRph4iV/ymtdJ6ZxpBLFbyrxklnT5yBbQSl3Q==
+    dependencies:
+      loose-envify "^1.4.0"
+      symbol-observable "^1.2.0"
   
   reflect.ownkeys@^0.2.0:
     version "0.2.0"
@@ -5147,6 +5221,14 @@ Lockfile:
     version "0.13.6"
     resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
     integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==
+    dependencies:
+      loose-envify "^1.1.0"
+      object-assign "^4.1.1"
+  
+  scheduler@^0.15.0:
+    version "0.15.0"
+    resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.15.0.tgz#6bfcf80ff850b280fed4aeecc6513bc0b4f17f8e"
+    integrity sha512-xAefmSfN6jqAa7Kuq7LIJY0bwAPG3xlCj0HMEBQk1lxYiDKZscY2xJ5U/61ZTrYbmNQbXa+gc7czPkVo11tnCg==
     dependencies:
       loose-envify "^1.1.0"
       object-assign "^4.1.1"
@@ -5639,6 +5721,11 @@ Lockfile:
     integrity sha512-qe1jfm1Mg7Nq/NSh6XE24gPXROEVsWHxC1LIx//XNlD9iw7YZQGjZNjYN7xGaEG6iKdA8EtNFW6R0gjnVXp+wQ==
     dependencies:
       has-flag "^3.0.0"
+  
+  symbol-observable@^1.2.0:
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+    integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
   
   tapable@^1.0.0, tapable@^1.1.0:
     version "1.1.3"

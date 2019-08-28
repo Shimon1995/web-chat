@@ -24,6 +24,6 @@
     "include": [
         "next-env.d.ts",
         "**/*.ts",
-        "**/*.tsx", "pages/_app.tsx", "lib/with-redux-store.tsx"
+        "**/*.tsx", "pages/_app.tsx", "lib/with-redux-store.tsx", "components/chat-components/TextArea.jsx"
     ]
 }

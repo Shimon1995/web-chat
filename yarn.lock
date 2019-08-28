@@ -5115,6 +5115,11 @@ react-redux@^7.1.0:
     prop-types "^15.7.2"
     react-is "^16.8.6"
 
+react-scroll-to@^2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/react-scroll-to/-/react-scroll-to-2.0.10.tgz#79aaac2398ce15b562e7f22db5f034d163d58323"
+  integrity sha512-JYbkV7Jw/slLbJjYfOnoAP5xAGnhDOCnccN0W/7d5MsmC/j23eKn0WfNXfcj4VpKWB3mYzH88cc1nPzW7+TBaA==
+
 react-skeleton-css@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-skeleton-css/-/react-skeleton-css-1.1.0.tgz#568f7db9174694185fbf3829493b2848ed338976"

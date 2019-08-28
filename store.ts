@@ -1,9 +1,11 @@
-import { FormEvent } from "react";
+import { FormEvent, createRef } from "react";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Dialogue, State } from "./components/types";
 
 export const exampleInitialState: State = {
+  txtinp: createRef(),
+  text: createRef(),
   input: "",
   chat: [],
   message: {
@@ -36,7 +38,6 @@ export const reducer = (state = exampleInitialState, action) => {
         input: action.inp
       });
     case CHANGENAME:
-      action.evt.preventDefault();
       return Object.assign({}, state, {
         message: { name: state.input, msg: "" },
         input: ""

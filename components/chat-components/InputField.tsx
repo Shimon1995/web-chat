@@ -1,15 +1,26 @@
-import { Component, FormEvent, FormEventHandler } from "react";
+import {
+  Component,
+  FormEvent,
+  FormEventHandler,
+  createRef,
+  Ref
+  // RefObject,
+} from "react";
 import { connect } from "react-redux";
 import { takeInput, sendMessage, receiveMessage } from "../../store";
+import { RefObject } from "react";
 import { Dialogue, State as GlobalState } from "../types";
 import { bindActionCreators } from "redux";
 import io from "socket.io-client";
 
 interface State {
   socket: any;
+  // input: RefObject<HTMLInputElement>;
 }
 
 interface Props {
+  txtinp: RefObject<HTMLInputElement>;
+  text: RefObject<HTMLElement>;
   chat: Dialogue[];
   message?: Dialogue;
   takeInput: FormEventHandler;
@@ -24,20 +35,22 @@ class Input extends Component<Props, State> {
   componentDidMount(): void {
     this.state.socket.on("message", (mssg: Dialogue) => {
       this.props.receiveMessage(mssg);
+      setTimeout(() => this.props.text.current.click(), 0.00001);
     });
   }
   componentWillUnmount(): void {
     this.state.socket.disconnect();
   }
   render() {
-    const { message, takeInput, sendMessage } = this.props;
+    const { txtinp, message, takeInput, sendMessage } = this.props;
     return (
       <form
         onSubmit={(event: FormEvent<HTMLFormElement>) => {
           event.preventDefault();
           if (message.msg !== "") {
-            this.state.socket.emit("msg", message);
             sendMessage(event);
+            this.state.socket.emit("msg", message);
+            setTimeout(() => this.props.text.current.click(), 0.00001);
           }
         }}
         className="inputForm"
@@ -49,6 +62,7 @@ class Input extends Component<Props, State> {
           value={message.msg}
           onChange={takeInput}
           placeholder="Your message goes here"
+          ref={txtinp}
         />
         <input
           className="button button-primary"
@@ -68,11 +82,13 @@ class Input extends Component<Props, State> {
 }
 
 function mapStateToProps(state: GlobalState) {
-  const { input, message, chat } = state;
+  const { txtinp, input, message, chat, text } = state;
   return {
+    txtinp,
     input,
     message,
-    chat
+    chat,
+    text
   };
 }
 const mapDispatchToProps = dispatch =>

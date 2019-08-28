@@ -1,4 +1,8 @@
+import { RefObject } from "react";
+
 export interface State {
+  txtinp: RefObject<HTMLInputElement>;
+  text: RefObject<HTMLElement>;
   input: string;
   chat: Dialogue[];
   message: Dialogue;

@@ -82,6 +82,7 @@ npm start
 - [Socket.io](https://socket.io/) - The library for WS connection
 - [TypeScript](https://www.typescriptlang.org/) - The programming language
 - [Yarn](https://yarnpkg.com/en/) - The package manager
+- [express](https://expressjs.com/) - web frame for node.js
 
 ## Author
 

@@ -27,13 +27,22 @@ nextApp
 
     let room: number = 0;
     io.on("connection", (socket: Socket) => {
+      socket.join(`room-${room}`);
+      socket.emit("s", room);
       if (
         io.nsps["/"].adapter.rooms[`room-${room}`] &&
-        io.nsps["/"].adapter.rooms[`room-${room}`].length >= 2
-      )
-        ++room;
-
-      socket.join(`room-${room}`);
+        io.nsps["/"].adapter.rooms[`room-${room}`].length === 2
+      ) {
+        io.of("/")
+          .to(`room-${room}`)
+          .emit("ChangeRoom");
+        room++;
+      }
+      if (
+        io.nsps["/"].adapter.rooms[`room-${room}`] &&
+        io.nsps["/"].adapter.rooms[`room-${room}`].length >= 3
+      ) {
+      }
 
       socket.in(`room-${room}`).on("msg", (message: Dialogue) => {
         socket.in(`room-${room}`).broadcast.send(message);

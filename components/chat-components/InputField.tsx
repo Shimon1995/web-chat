@@ -1,13 +1,11 @@
-import {
-  Component,
-  FormEvent,
-  FormEventHandler,
-  createRef,
-  Ref
-  // RefObject,
-} from "react";
+import { Component, FormEvent, FormEventHandler } from "react";
 import { connect } from "react-redux";
-import { takeInput, sendMessage, receiveMessage } from "../../store";
+import {
+  takeInput,
+  sendMessage,
+  receiveMessage,
+  chatChange
+} from "../../store";
 import { RefObject } from "react";
 import { Dialogue, State as GlobalState } from "../types";
 import { bindActionCreators } from "redux";
@@ -15,10 +13,11 @@ import io from "socket.io-client";
 
 interface State {
   socket: any;
-  // input: RefObject<HTMLInputElement>;
 }
 
 interface Props {
+  wait: boolean;
+  disconnectBtn: RefObject<HTMLInputElement>;
   txtinp: RefObject<HTMLInputElement>;
   text: RefObject<HTMLElement>;
   chat: Dialogue[];
@@ -26,6 +25,7 @@ interface Props {
   takeInput: FormEventHandler;
   sendMessage: FormEventHandler;
   receiveMessage: any;
+  chatChange: any;
 }
 
 class Input extends Component<Props, State> {
@@ -33,8 +33,20 @@ class Input extends Component<Props, State> {
     socket: io()
   };
   componentDidMount(): void {
+    this.state.socket.on("ChangeRoom", () => {
+      this.props.chatChange();
+    });
+
+    this.props.disconnectBtn.current.onclick = () =>
+      this.state.socket.disconnect();
+
+    this.state.socket.on("s", (room: number) =>
+      console.log(`You're in room ${room}`)
+    );
+
     this.state.socket.on("message", (mssg: Dialogue) => {
       this.props.receiveMessage(mssg);
+      this.props.txtinp.current.focus();
       setTimeout(() => this.props.text.current.click(), 0.00001);
     });
   }
@@ -55,7 +67,6 @@ class Input extends Component<Props, State> {
         }}
         className="inputForm"
       >
-        {/* <input type="button" value="Disconnect" /> */}
         <input
           className="text"
           type="text"
@@ -65,6 +76,7 @@ class Input extends Component<Props, State> {
           ref={txtinp}
         />
         <input
+          tabIndex={-1}
           className="button button-primary"
           type="button"
           value="Send"
@@ -82,17 +94,22 @@ class Input extends Component<Props, State> {
 }
 
 function mapStateToProps(state: GlobalState) {
-  const { txtinp, input, message, chat, text } = state;
+  const { disconnectBtn, txtinp, input, message, chat, text, wait } = state;
   return {
+    disconnectBtn,
     txtinp,
     input,
     message,
     chat,
-    text
+    text,
+    wait
   };
 }
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ takeInput, sendMessage, receiveMessage }, dispatch);
+  bindActionCreators(
+    { takeInput, sendMessage, receiveMessage, chatChange },
+    dispatch
+  );
 export default connect(
   mapStateToProps,
   mapDispatchToProps

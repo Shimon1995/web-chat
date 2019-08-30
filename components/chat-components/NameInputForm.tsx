@@ -5,56 +5,78 @@ import {
   createRef,
   RefObject
 } from "react";
-import { changeNameInput, changeName } from "../../store";
+import { changeNameInput, changeName, disconnect } from "../../store";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { State } from "../types";
+import { State, Dialogue } from "../types";
 
 interface Props {
+  disconnectBtn: RefObject<HTMLInputElement>;
+  message: Dialogue;
   txtinp: RefObject<HTMLInputElement>;
   input: string;
   changeNameInput: FormEventHandler;
   changeName: FormEventHandler;
+  disconnect: any;
 }
 
 const NameInputForm: FunctionComponent<Props> = ({
+  disconnectBtn,
   txtinp,
   input,
   changeNameInput,
-  changeName
+  changeName,
+  message,
+  disconnect
 }) => {
+  const { name } = message;
   const inp: RefObject<HTMLInputElement> = createRef();
-  useEffect(() => inp.current.focus());
+  useEffect(() => {
+    if (name === "") inp.current.focus();
+  });
   return (
-    <form
-      className="nameForm"
-      onSubmit={e => {
-        e.preventDefault();
-        txtinp.current.focus();
-        changeName(e);
-      }}
-    >
+    <div>
+      <form
+        style={name !== "" ? { display: "none" } : {}}
+        className="nameForm"
+        onSubmit={e => {
+          e.preventDefault();
+          txtinp.current.focus();
+          changeName(e);
+        }}
+      >
+        <input
+          ref={inp}
+          type="text"
+          value={input}
+          onChange={changeNameInput}
+          placeholder="Enter Your Name"
+        />
+      </form>
       <input
-        ref={inp}
-        className="text"
-        type="text"
-        value={input}
-        onChange={changeNameInput}
-        placeholder="Enter Your Name"
+        style={name === "" ? { display: "none" } : {}}
+        ref={disconnectBtn}
+        onClick={disconnect}
+        type="button"
+        value="Disconnect"
+        className="text space"
+        tabIndex={-1}
       />
-    </form>
+    </div>
   );
 };
 
 function mapStateToProps(state: State) {
-  const { input, txtinp } = state;
+  const { disconnectBtn, input, txtinp, message } = state;
   return {
+    disconnectBtn,
     txtinp,
-    input
+    input,
+    message
   };
 }
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ changeNameInput, changeName }, dispatch);
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators({ changeNameInput, changeName, disconnect }, dispatch);
 export default connect(
   mapStateToProps,
   mapDispatchToProps

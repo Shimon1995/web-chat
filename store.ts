@@ -4,6 +4,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { Dialogue, State } from "./components/types";
 
 export const exampleInitialState: State = {
+  wait: true,
+  disconnectBtn: createRef(),
   txtinp: createRef(),
   text: createRef(),
   input: "",
@@ -16,30 +18,39 @@ export const exampleInitialState: State = {
 
 // ACTION TYPES
 export enum actionTypes {
+  CHATCHANGE,
   CHANGEINPUT,
   CHANGENAME,
   TAKEINPUT,
   SENDMESSAGE,
-  RECEIVEMESSAGE
+  RECEIVEMESSAGE,
+  DISCONNECT
 }
 
 // REDUCERS
 export const reducer = (state = exampleInitialState, action) => {
   const {
+    CHATCHANGE,
     CHANGEINPUT,
     CHANGENAME,
     TAKEINPUT,
     SENDMESSAGE,
-    RECEIVEMESSAGE
+    RECEIVEMESSAGE,
+    DISCONNECT
   } = actionTypes;
   switch (action.type) {
+    case CHATCHANGE:
+      console.log("Change Room");
+      return Object.assign({}, state, {
+        wait: !state.wait
+      });
     case CHANGEINPUT:
       return Object.assign({}, state, {
         input: action.inp
       });
     case CHANGENAME:
       return Object.assign({}, state, {
-        message: { name: state.input, msg: "" },
+        message: { name: state.input === "Me" ? "User" : state.input, msg: "" },
         input: ""
       });
     case TAKEINPUT:
@@ -61,12 +72,21 @@ export const reducer = (state = exampleInitialState, action) => {
         chat: [...state.chat, action.mssg],
         message: { name: state.message.name, msg: "" }
       });
+    case DISCONNECT:
+      confirm("Are you sure?");
+      break;
     default:
       return state;
   }
 };
 
 // ACTIONS
+export const chatChange = () => {
+  return {
+    type: actionTypes.CHATCHANGE
+  };
+};
+
 export const changeNameInput = (event: FormEvent<HTMLInputElement>) => {
   return {
     type: actionTypes.CHANGEINPUT,
@@ -99,6 +119,12 @@ export const receiveMessage = (mssg: Dialogue) => {
   return {
     type: actionTypes.RECEIVEMESSAGE,
     mssg
+  };
+};
+
+export const disconnect = () => {
+  return {
+    type: actionTypes.DISCONNECT
   };
 };
 

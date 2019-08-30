@@ -20,13 +20,13 @@ const Layout: FunctionComponent<Props> = ({ children, title = "Untitled" }) => (
         <nav>
           <div>
             <Link href="/">
-              <a>Home</a>
+              <a tabIndex={-1}>Home</a>
             </Link>
             <Link href="/about">
-              <a>About</a>
+              <a tabIndex={-1}>About</a>
             </Link>
             <Link href="/help">
-              <a>Help</a>
+              <a tabIndex={-1}>Help</a>
             </Link>
           </div>
         </nav>
